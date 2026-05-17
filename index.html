@@ -1,0 +1,829 @@
+<!-- =========================================================
+FILE: index.html
+A cinematic romantic website for Isha Singh
+Just place this file in a folder with your photos and open it.
+========================================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For Isha Singh</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Caveat:wght@400;500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+
+    /* =========================================================
+       GLOBAL STYLES
+    ========================================================= */
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#080808;
+      color:#f5f1ea;
+      overflow-x:hidden;
+      font-family:'Inter',sans-serif;
+      line-height:1.7;
+      position:relative;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    section{
+      position:relative;
+      padding:120px 8%;
+    }
+
+    h1,h2,h3{
+      font-family:'Cormorant Garamond',serif;
+      font-weight:500;
+      letter-spacing:0.5px;
+    }
+
+    p{
+      color:rgba(255,255,255,0.82);
+      font-size:1.05rem;
+    }
+
+    /* =========================================================
+       FILM GRAIN OVERLAY
+    ========================================================= */
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:0.08;
+      z-index:999;
+      background-image:url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+      mix-blend-mode:soft-light;
+    }
+
+    /* =========================================================
+       FLOATING PARTICLES
+    ========================================================= */
+
+    .particles{
+      position:fixed;
+      inset:0;
+      overflow:hidden;
+      pointer-events:none;
+      z-index:1;
+    }
+
+    .particle{
+      position:absolute;
+      width:4px;
+      height:4px;
+      border-radius:50%;
+      background:rgba(255,220,180,0.7);
+      animation:float linear infinite;
+      filter:blur(1px);
+    }
+
+    @keyframes float{
+      0%{
+        transform:translateY(100vh) translateX(0);
+        opacity:0;
+      }
+
+      10%{
+        opacity:1;
+      }
+
+      100%{
+        transform:translateY(-120vh) translateX(80px);
+        opacity:0;
+      }
+    }
+
+    /* =========================================================
+       CURSOR GLOW
+    ========================================================= */
+
+    .cursor-glow{
+      width:300px;
+      height:300px;
+      border-radius:50%;
+      position:fixed;
+      pointer-events:none;
+      background:radial-gradient(circle, rgba(255,180,120,0.12), transparent 70%);
+      transform:translate(-50%,-50%);
+      z-index:0;
+      transition:transform 0.05s linear;
+    }
+
+    /* =========================================================
+       HERO SECTION
+    ========================================================= */
+
+    .hero{
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      overflow:hidden;
+      position:relative;
+      background:
+      linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)),
+      url("images/photo1.jpg") center/cover no-repeat;
+    }
+
+    .hero-content{
+      max-width:900px;
+      z-index:2;
+      animation:fadeIn 2s ease;
+    }
+
+    .hero h1{
+      font-size:clamp(3rem,7vw,6.5rem);
+      line-height:1;
+      margin-bottom:24px;
+      text-shadow:0 0 30px rgba(255,180,120,0.2);
+    }
+
+    .hero p{
+      font-size:1.2rem;
+      color:rgba(255,255,255,0.82);
+      letter-spacing:0.4px;
+    }
+
+    .hero .name{
+      margin-top:30px;
+      font-family:'Caveat',cursive;
+      font-size:2rem;
+      color:#ffd6b0;
+    }
+
+    @keyframes fadeIn{
+      from{
+        opacity:0;
+        transform:translateY(30px);
+      }
+
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    /* =========================================================
+       LOVE LETTER SECTION
+    ========================================================= */
+
+    .letter-section{
+      background:
+      radial-gradient(circle at top left, rgba(255,180,120,0.08), transparent 30%),
+      #0c0c0c;
+    }
+
+    .section-title{
+      font-size:4rem;
+      margin-bottom:60px;
+      text-align:center;
+    }
+
+    .letter-card{
+      max-width:900px;
+      margin:auto;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      backdrop-filter:blur(12px);
+      padding:60px;
+      border-radius:30px;
+      box-shadow:0 0 60px rgba(0,0,0,0.5);
+      position:relative;
+    }
+
+    .letter-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:30px;
+      background:linear-gradient(
+        135deg,
+        rgba(255,255,255,0.03),
+        transparent
+      );
+      pointer-events:none;
+    }
+
+    .handwritten{
+      font-family:'Caveat',cursive;
+      font-size:2rem;
+      color:#ffe4c8;
+      margin-bottom:30px;
+    }
+
+    .letter-card p{
+      margin-bottom:28px;
+      opacity:0;
+      transform:translateY(30px);
+      transition:1s ease;
+    }
+
+    .letter-card p.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    /* =========================================================
+       MEMORY GALLERY
+    ========================================================= */
+
+    .gallery{
+      background:#090909;
+    }
+
+    .gallery-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:40px;
+      margin-top:60px;
+    }
+
+    .memory{
+      position:relative;
+      background:#111;
+      padding:14px;
+      border-radius:24px;
+      overflow:hidden;
+      transform:rotate(calc(var(--r) * 1deg));
+      transition:0.5s ease;
+      cursor:pointer;
+      box-shadow:0 15px 40px rgba(0,0,0,0.5);
+    }
+
+    .memory:hover{
+      transform:scale(1.04) rotate(0deg);
+      box-shadow:0 0 40px rgba(255,190,130,0.2);
+    }
+
+    .memory img{
+      border-radius:18px;
+      height:380px;
+      object-fit:cover;
+      width:100%;
+    }
+
+    .memory span{
+      display:block;
+      margin-top:14px;
+      font-family:'Caveat',cursive;
+      color:#f8d6b5;
+      font-size:1.3rem;
+    }
+
+    /* =========================================================
+       LIGHTBOX
+    ========================================================= */
+
+    .lightbox{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.92);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      z-index:1000;
+      padding:30px;
+    }
+
+    .lightbox img{
+      max-width:90%;
+      max-height:90%;
+      border-radius:24px;
+      box-shadow:0 0 50px rgba(255,255,255,0.1);
+    }
+
+    /* =========================================================
+       REASONS SECTION
+    ========================================================= */
+
+    .reasons{
+      background:
+      radial-gradient(circle at bottom right, rgba(255,160,100,0.08), transparent 30%),
+      #0d0d0d;
+    }
+
+    .reasons-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:30px;
+      margin-top:60px;
+    }
+
+    .reason-card{
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.06);
+      padding:40px;
+      border-radius:26px;
+      backdrop-filter:blur(8px);
+      transition:0.5s ease;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .reason-card:hover{
+      transform:translateY(-8px);
+      box-shadow:0 0 30px rgba(255,190,130,0.12);
+    }
+
+    .reason-card p{
+      font-size:1.2rem;
+      color:#fff4e6;
+    }
+
+    /* =========================================================
+       FINAL SECTION
+    ========================================================= */
+
+    .final{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      background:
+      linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.85)),
+      url("images/photo6.jpg") center/cover no-repeat;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .final::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+      radial-gradient(circle, rgba(255,190,120,0.12), transparent 60%);
+      animation:pulse 6s infinite;
+    }
+
+    @keyframes pulse{
+      0%{
+        opacity:0.4;
+        transform:scale(1);
+      }
+
+      50%{
+        opacity:0.9;
+        transform:scale(1.1);
+      }
+
+      100%{
+        opacity:0.4;
+        transform:scale(1);
+      }
+    }
+
+    .final-content{
+      position:relative;
+      z-index:2;
+      max-width:900px;
+    }
+
+    .final h2{
+      font-size:clamp(2.5rem,6vw,5rem);
+      margin-bottom:30px;
+    }
+
+    .final p{
+      font-size:1.3rem;
+      margin-bottom:20px;
+    }
+
+    .ending{
+      margin-top:40px;
+      font-family:'Caveat',cursive;
+      font-size:2rem;
+      color:#ffd4ae;
+    }
+
+    /* =========================================================
+       SCROLL REVEAL
+    ========================================================= */
+
+    .reveal{
+      opacity:0;
+      transform:translateY(50px);
+      transition:1.2s ease;
+    }
+
+    .reveal.active{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    /* =========================================================
+       MOBILE
+    ========================================================= */
+
+    @media(max-width:768px){
+
+      section{
+        padding:90px 7%;
+      }
+
+      .letter-card{
+        padding:35px;
+      }
+
+      .hero h1{
+        line-height:1.1;
+      }
+
+      .section-title{
+        font-size:3rem;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================================================
+       FLOATING PARTICLES
+  ========================================================= -->
+
+  <div class="particles"></div>
+
+  <!-- =========================================================
+       CURSOR GLOW
+  ========================================================= -->
+
+  <div class="cursor-glow"></div>
+
+  <!-- =========================================================
+       HERO SECTION
+  ========================================================= -->
+
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <h1>
+        You are the strongest and most beautiful soul I’ve ever known.
+      </h1>
+
+      <p>
+        And I’m endlessly proud of you.
+      </p>
+
+      <div class="name">
+        For Isha Singh 🐿️
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================================================
+       LOVE LETTER
+  ========================================================= -->
+
+  <section class="letter-section">
+
+    <h2 class="section-title reveal">
+      A Letter For You
+    </h2>
+
+    <div class="letter-card reveal">
+
+      <div class="handwritten">
+        my love,
+      </div>
+
+      <p>
+        Sometimes I look at you and genuinely cannot understand how one person can carry so much strength inside them so quietly. The way you continue moving through life, even after difficult days, even after exhaustion, even after moments where the world feels too heavy, inspires me more than I can explain.
+      </p>
+
+      <p>
+        I need you to know something very clearly. I am proud of you in ways words struggle to describe. Proud of your heart. Proud of your softness. Proud of the way you care for people even when you are tired yourself. Proud of the battles you fight silently.
+      </p>
+
+      <p>
+        Loving you has changed the way I experience life. Everything feels warmer. Songs feel deeper. Nights feel softer. Even ordinary moments feel meaningful because they somehow remind me of you.
+      </p>
+
+      <p>
+        You make the world feel less cold. Less frightening. Less lonely. Your existence genuinely makes life feel more beautiful to me.
+      </p>
+
+      <p>
+        I don’t think you always realize how special you are, but I hope this website becomes a small reminder of it whenever you need one.
+      </p>
+
+      <p>
+        Thank you for existing. Thank you for staying. Thank you for being you.
+      </p>
+
+    </div>
+
+  </section>
+
+  <!-- =========================================================
+       PHOTO GALLERY
+       Replace image paths with your own photos
+  ========================================================= -->
+
+  <section class="gallery">
+
+    <h2 class="section-title reveal">
+      Our Memories
+    </h2>
+
+    <div class="gallery-grid">
+
+      <div class="memory reveal" style="--r:-3">
+        <img src="images/photo1.jpg" alt="">
+        <span>the way i see you</span>
+      </div>
+
+      <div class="memory reveal" style="--r:4">
+        <img src="images/photo2.jpg" alt="">
+        <span>late night thoughts of you</span>
+      </div>
+
+      <div class="memory reveal" style="--r:-5">
+        <img src="images/photo3.jpg" alt="">
+        <span>beautiful soul</span>
+      </div>
+
+      <div class="memory reveal" style="--r:2">
+        <img src="images/photo4.jpg" alt="">
+        <span>you feel like home</span>
+      </div>
+
+      <div class="memory reveal" style="--r:-4">
+        <img src="images/photo5.jpg" alt="">
+        <span>pieces of us</span>
+      </div>
+
+      <div class="memory reveal" style="--r:3">
+        <img src="images/photo6.jpg" alt="">
+        <span>forever proud of you</span>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================================================
+       REASONS SECTION
+  ========================================================= -->
+
+  <section class="reasons">
+
+    <h2 class="section-title reveal">
+      Reasons I Love You
+    </h2>
+
+    <div class="reasons-grid">
+
+      <div class="reason-card reveal">
+        <p>
+          Your strength inspires me.
+        </p>
+      </div>
+
+      <div class="reason-card reveal">
+        <p>
+          You make the world softer.
+        </p>
+      </div>
+
+      <div class="reason-card reveal">
+        <p>
+          Your smile feels like home.
+        </p>
+      </div>
+
+      <div class="reason-card reveal">
+        <p>
+          You love with your whole heart.
+        </p>
+      </div>
+
+      <div class="reason-card reveal">
+        <p>
+          Even your silence feels comforting.
+        </p>
+      </div>
+
+      <div class="reason-card reveal">
+        <p>
+          You make ordinary moments unforgettable.
+        </p>
+      </div>
+
+      <div class="reason-card reveal">
+        <p>
+          You are gentle in a cruel world.
+        </p>
+      </div>
+
+      <div class="reason-card reveal">
+        <p>
+          Being loved by you feels unreal.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================================================
+       FINAL SECTION
+  ========================================================= -->
+
+  <section class="final">
+
+    <div class="final-content">
+
+      <h2>
+        No matter what happens in life,<br>
+        I will always be proud of you.
+      </h2>
+
+      <p>
+        You are deeply loved. More than you know.
+      </p>
+
+      <p>
+        Thank you for existing.
+      </p>
+
+      <div class="ending">
+        forever yours, for isha 🐿️
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================================================
+       LIGHTBOX
+  ========================================================= -->
+
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="">
+  </div>
+
+  <!-- =========================================================
+       OPTIONAL BACKGROUND MUSIC
+       Replace "music.mp3" with your song
+  ========================================================= -->
+
+  <audio autoplay loop id="bgMusic">
+    <source src="music.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- =========================================================
+       JAVASCRIPT
+  ========================================================= -->
+
+  <script>
+
+    /* =========================================================
+       FLOATING PARTICLES
+    ========================================================= */
+
+    const particlesContainer = document.querySelector('.particles');
+
+    for(let i = 0; i < 50; i++){
+
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+
+      particle.style.left = Math.random() * 100 + 'vw';
+      particle.style.animationDuration = (10 + Math.random() * 15) + 's';
+      particle.style.animationDelay = Math.random() * 10 + 's';
+
+      const size = Math.random() * 4 + 2;
+
+      particle.style.width = size + 'px';
+      particle.style.height = size + 'px';
+
+      particlesContainer.appendChild(particle);
+    }
+
+    /* =========================================================
+       SCROLL REVEAL
+    ========================================================= */
+
+    const reveals = document.querySelectorAll('.reveal');
+
+    function revealOnScroll(){
+
+      reveals.forEach(item => {
+
+        const windowHeight = window.innerHeight;
+        const top = item.getBoundingClientRect().top;
+
+        if(top < windowHeight - 100){
+          item.classList.add('active');
+        }
+
+      });
+
+    }
+
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+
+    /* =========================================================
+       LETTER PARAGRAPH FADE
+    ========================================================= */
+
+    const paragraphs = document.querySelectorAll('.letter-card p');
+
+    function showParagraphs(){
+
+      paragraphs.forEach(p => {
+
+        const top = p.getBoundingClientRect().top;
+
+        if(top < window.innerHeight - 80){
+          p.classList.add('show');
+        }
+
+      });
+
+    }
+
+    window.addEventListener('scroll', showParagraphs);
+    showParagraphs();
+
+    /* =========================================================
+       LIGHTBOX
+    ========================================================= */
+
+    const memories = document.querySelectorAll('.memory img');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+
+    memories.forEach(img => {
+
+      img.addEventListener('click', () => {
+
+        lightbox.style.display = 'flex';
+        lightboxImg.src = img.src;
+
+      });
+
+    });
+
+    lightbox.addEventListener('click', () => {
+      lightbox.style.display = 'none';
+    });
+
+    /* =========================================================
+       CURSOR GLOW
+    ========================================================= */
+
+    const glow = document.querySelector('.cursor-glow');
+
+    document.addEventListener('mousemove', e => {
+
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+
+    });
+
+    /* =========================================================
+       AUTOPLAY MUSIC FIX FOR SOME BROWSERS
+    ========================================================= */
+
+    const music = document.getElementById('bgMusic');
+
+    window.addEventListener('click', () => {
+      music.play();
+    }, { once:true });
+
+  </script>
+
+</body>
+</html>
